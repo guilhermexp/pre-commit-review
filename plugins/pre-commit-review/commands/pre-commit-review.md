@@ -1,5 +1,5 @@
 ---
-allowed-tools: Bash(git diff*), Bash(git status*), Bash(git log*), Bash(git blame*), Bash(git show*), Bash(coderabbit:*), Bash(cr:*), Read
+allowed-tools: Bash(git diff*), Bash(git status*), Bash(git log*), Bash(git blame*), Bash(git show*), Bash(coderabbit:*), Bash(cr:*), Bash(curl:*), Bash(which:*), Read
 description: Dual-engine code review (Claude agents + CodeRabbit) on uncommitted changes before committing
 disable-model-invocation: false
 ---
@@ -41,8 +41,15 @@ Pass the full diff output to each agent. Each agent returns a list of issues wit
 **Engine B — CodeRabbit (parallel with Engine A):**
 
    f. Run `coderabbit --version 2>/dev/null` to check if CLI is installed.
-      - If NOT installed: skip Engine B entirely, log a note that CodeRabbit was unavailable, and proceed with Engine A results only.
-      - If installed: run `coderabbit review --plain -t uncommitted` and capture the full output.
+      - If NOT installed, auto-install it:
+        ```bash
+        curl -fsSL https://cli.coderabbit.ai/install.sh | sh
+        ```
+        Then verify with `coderabbit --version`. If install fails, warn the user and proceed with Engine A only.
+      - Check auth with `coderabbit auth status 2>&1`. If not authenticated, inform the user:
+        > CodeRabbit installed but not authenticated. Run `! coderabbit auth login` to authenticate, then try again.
+        Proceed with Engine A only for this run.
+      - If installed and authenticated: run `coderabbit review --plain -t uncommitted` and capture the full output.
       - Parse CodeRabbit output into structured issues with: file, line(s), description, severity (Critical/High/Medium/Low), category (bug/security/performance/style).
 
 ### Phase 3: Scoring with cross-validation (parallel per issue)
@@ -140,5 +147,5 @@ No significant issues found. Changes look good to commit.
 - Do NOT commit or stage any changes.
 - Use `git diff` and `git diff --cached` as the source of truth for what changed.
 - The threshold is 70 (lower than single-engine) because cross-validation already filters noise — a 70+ score after dual-engine analysis is high confidence.
-- If CodeRabbit CLI is not installed, degrade gracefully: run only Engine A, note in output that CodeRabbit was unavailable, and use the original threshold of 75 for single-engine mode.
+- CodeRabbit CLI is auto-installed if missing. If install or auth fails, degrade to Engine A only with threshold 75.
 - Make a todo list first to track progress through the phases.
