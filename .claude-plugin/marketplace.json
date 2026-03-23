@@ -1,10 +1,18 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "pre-commit-review",
   "description": "Dual-engine pre-commit code review using Claude agents + CodeRabbit with cross-validation",
-  "plugins": {
-    "pre-commit-review": {
-      "path": ".",
-      "description": "Dual-engine pre-commit code review (Claude Agents + CodeRabbit)"
+  "owner": {
+    "name": "Guilherme Varela",
+    "email": "guilhermexp@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "pre-commit-review",
+      "description": "Dual-engine pre-commit code review (Claude Agents + CodeRabbit)",
+      "category": "development",
+      "source": ".",
+      "homepage": "https://github.com/guilhermexp/pre-commit-review"
     }
-  }
+  ]
 }
