@@ -144,8 +144,27 @@ No significant issues found. Changes look good to commit.
 
 - Do NOT check build signal, run builds, or run tests. These are out of scope.
 - Do NOT post comments to GitHub. This is a local-only review.
-- Do NOT commit or stage any changes.
 - Use `git diff` and `git diff --cached` as the source of truth for what changed.
 - The threshold is 70 (lower than single-engine) because cross-validation already filters noise — a 70+ score after dual-engine analysis is high confidence.
 - CodeRabbit CLI is auto-installed if missing. If install or auth fails, degrade to Engine A only with threshold 75.
 - Make a todo list first to track progress through the phases.
+
+## Phase 5: Fix and commit (after user approval)
+
+After presenting the results, ask the user if they want to fix the issues found.
+
+If the user says yes:
+
+1. Fix all issues that scored above the threshold. Use an agent or fix directly.
+2. **ALWAYS commit the fixes immediately after applying them.** This is critical — uncommitted fixes will be mixed with the original changes and confuse future reviews.
+3. Stage ONLY the files that were modified by the fixes (not the user's original changes).
+4. Create a commit with the message format:
+   ```
+   fix: apply pre-commit review fixes
+
+   Issues fixed:
+   - <brief description of each fix>
+   ```
+5. After committing, inform the user that fixes were committed separately from their original changes.
+
+**Why commit immediately:** If fixes are left uncommitted, they blend with the user's original diff. The next review run would see both the original changes AND the fixes as "uncommitted changes", making it impossible to distinguish what was reviewed vs what was fixed. Committing fixes separately keeps the git history clean and auditable.
