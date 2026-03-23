@@ -23,7 +23,7 @@ A Claude Code plugin that reviews uncommitted changes using **two independent AI
 ## Install
 
 ```bash
-claude plugin add guilhermevarela/pre-commit-review
+claude plugin add guilhermexp/pre-commit-review
 ```
 
 ## Usage

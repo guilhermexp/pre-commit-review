@@ -4,9 +4,9 @@
   "description": "Dual-engine pre-commit code review using Claude agents + CodeRabbit with cross-validation",
   "author": {
     "name": "Guilherme Varela",
-    "url": "https://github.com/guilhermevarela"
+    "url": "https://github.com/guilhermexp"
   },
-  "repository": "https://github.com/guilhermevarela/pre-commit-review",
+  "repository": "https://github.com/guilhermexp/pre-commit-review",
   "license": "MIT",
   "keywords": [
     "code-review",
