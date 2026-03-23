@@ -1,0 +1,8 @@
+{
+  "name": "pre-commit-review",
+  "description": "Dual-engine pre-commit code review (Claude Agents + CodeRabbit)",
+  "author": {
+    "name": "Guilherme Varela",
+    "url": "https://github.com/guilhermexp"
+  }
+}

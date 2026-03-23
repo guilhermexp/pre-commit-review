@@ -11,7 +11,7 @@
       "name": "pre-commit-review",
       "description": "Dual-engine pre-commit code review (Claude Agents + CodeRabbit)",
       "category": "development",
-      "source": ".",
+      "source": "./plugins/pre-commit-review",
       "homepage": "https://github.com/guilhermexp/pre-commit-review"
     }
   ]
