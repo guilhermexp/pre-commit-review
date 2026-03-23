@@ -1,0 +1,10 @@
+{
+  "name": "pre-commit-review",
+  "description": "Dual-engine pre-commit code review using Claude agents + CodeRabbit with cross-validation",
+  "plugins": {
+    "pre-commit-review": {
+      "path": ".",
+      "description": "Dual-engine pre-commit code review (Claude Agents + CodeRabbit)"
+    }
+  }
+}
